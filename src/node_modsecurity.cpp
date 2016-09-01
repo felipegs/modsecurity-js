@@ -14,10 +14,11 @@ NAN_MODULE_INIT(InitAll) {
 
 
 void Log(void *data, const char *msg) {
-  string m(msg);
-
-  cout << "LOG=" << m << endl;
+  const unsigned argc = 1;
+  v8::Local<v8::Value> argv[argc] = { Nan::New(msg).ToLocalChecked() };
+  Nan::MakeCallback(Nan::GetCurrentContext()->Global(), *(v8::Local<v8::Function> *)data, argc, argv);
 }
+
 NAN_METHOD(HasThreats) {
   ModSecurity *modsec;
   Rules *rules;
@@ -28,8 +29,10 @@ NAN_METHOD(HasThreats) {
   Nan::MaybeLocal<v8::Object> config = Nan::To<v8::Object>(info[0]);
 
   //rules->load(r.c_str());
+  string ll("hahahah");
   rules->loadFromUri("/root/rules.conf");
-  Transaction *modsecTransaction = new Transaction(modsec, rules, NULL);
+  v8::Local<v8::Function> cb = info[2].As<v8::Function>();
+  Transaction *modsecTransaction = new Transaction(modsec, rules, &cb);
   modsec->setServerLogCb((LogCb)&Log);
 
   Nan::MaybeLocal<v8::String> clientIPV8 = Nan::To<v8::String>(Nan::Get(config.ToLocalChecked(), Nan::New("clientIP").ToLocalChecked()).ToLocalChecked());
@@ -61,7 +64,7 @@ NAN_METHOD(HasThreats) {
   Nan::MaybeLocal<v8::Object> headers = Nan::To<v8::Object>(Nan::Get(config.ToLocalChecked(), Nan::New("headers").ToLocalChecked()).ToLocalChecked());
   v8::Local<v8::Array> headersNames = headers.ToLocalChecked()->GetOwnPropertyNames();
 
-  for (int i = 0; i < headersNames->Length(); ++i) {
+  for (unsigned int i = 0; i < headersNames->Length(); ++i) {
     v8::Local<v8::Value> key = headersNames->Get(i);
     v8::Local<v8::Value> value = headers.ToLocalChecked()->Get(key);
 
