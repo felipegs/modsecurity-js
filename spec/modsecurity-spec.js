@@ -1,21 +1,20 @@
 'use strict'
-const Modsecurity = require('../index').Modsecurity;
+const modsecurity = require('../index');
 
 describe('Modsecurity', () => {
 
   describe('Modsecurity', () => {
 
     beforeEach(() => {
-      const rules = ""
-      this.modsecurity = new Modsecurity(rules)
+      const rules = {"clientIP": "127.0.0.1", "serverPort": 40, "headers" : {"Content-Type": "application/json"}, "payload": "{ \"ola\": 1 }" }
+      console.log(modsecurity)
+      console.log(modsecurity.hasThreats(rules))
+      //console.log(modsecurity.analyzeThreats(rules))
+
     })
 
     it("first test", function() {
-      console.log("passei aqui")
-      // this.modesecurity.processConnection(clientIP, clientPort, serverIP, serverPort)
-      // this.modesecurity.processConnection(clientIP, clientPort, serverIP, serverPort)
-      // this.modesecurity.addRequestHeader("Content-Type", "application/json")
-      // this.modesecurity.setRequestBody("{'body': 1}")
+
     })
 
   })
