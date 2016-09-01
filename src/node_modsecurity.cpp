@@ -12,11 +12,10 @@ NAN_MODULE_INIT(InitAll) {
   Nan::SetMethod(target,"hasThreats", HasThreats);
 }
 
-
-void Log(void *data, const char *msg) {
+void Log(void *fn, const char *msg) {
   const unsigned argc = 1;
   v8::Local<v8::Value> argv[argc] = { Nan::New(msg).ToLocalChecked() };
-  Nan::MakeCallback(Nan::GetCurrentContext()->Global(), *(v8::Local<v8::Function> *)data, argc, argv);
+  Nan::MakeCallback(Nan::GetCurrentContext()->Global(), *(v8::Local<v8::Function> *)fn, argc, argv);
 }
 
 NAN_METHOD(HasThreats) {
@@ -27,12 +26,12 @@ NAN_METHOD(HasThreats) {
   modsecurity::ModSecurityIntervention intervention;
 
   Nan::MaybeLocal<v8::Object> config = Nan::To<v8::Object>(info[0]);
+  Nan::MaybeLocal<v8::String> rulesConfigV8 = Nan::To<v8::String>(info[1]);
+  Nan::Utf8String rulesConfig(rulesConfigV8.ToLocalChecked());
 
-  //rules->load(r.c_str());
-  string ll("hahahah");
-  rules->loadFromUri("/root/rules.conf");
-  v8::Local<v8::Function> cb = info[2].As<v8::Function>();
-  Transaction *modsecTransaction = new Transaction(modsec, rules, &cb);
+  rules->load(*rulesConfig);
+  v8::Local<v8::Function> logCb = info[2].As<v8::Function>();
+  Transaction *modsecTransaction = new Transaction(modsec, rules, &logCb);
   modsec->setServerLogCb((LogCb)&Log);
 
   Nan::MaybeLocal<v8::String> clientIPV8 = Nan::To<v8::String>(Nan::Get(config.ToLocalChecked(), Nan::New("clientIP").ToLocalChecked()).ToLocalChecked());
