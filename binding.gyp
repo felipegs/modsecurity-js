@@ -1,6 +1,6 @@
 {
 	"variables": {
-		"MODSECURITY_LIB_DIR": "/usr/local/modsecurity"
+		"MODSECURITY_LIB_DIR": "/opt/cockpit-commons-lib"
 	},
 	"targets": [{
 		"target_name": "node_modsecurity",
