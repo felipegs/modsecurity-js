@@ -12,6 +12,10 @@ NAN_MODULE_INIT(InitAll) {
 NAN_METHOD(HasThreats) {
   //TODO tratar campos obrigatorios
 
+  if (!info[0]->IsObject() || !info[1]->IsString() || !info[2]->IsFunction()) {
+    return Nan::ThrowTypeError("Wrong arguments");
+  }
+
   Nan::MaybeLocal<v8::Object> config = Nan::To<v8::Object>(info[0]);
   Nan::MaybeLocal<v8::String> rulesConfigV8 = Nan::To<v8::String>(info[1]);
   Nan::Utf8String rulesConfig(rulesConfigV8.ToLocalChecked());
