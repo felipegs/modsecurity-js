@@ -6,7 +6,9 @@
 		"target_name": "node_modsecurity",
 		"sources": [
 			"src/node_modsecurity.hpp",
-			"src/node_modsecurity.cpp"
+			"src/node_modsecurity.cpp",
+			"src/modsecurity_worker.hpp",
+			"src/modsecurity_worker.cpp",
 		],
 		"cflags!": [
 			"-fno-exceptions",

@@ -4,6 +4,5 @@
 #include <nan.h>
 
 NAN_METHOD(HasThreats);
-void Log(void *data, const char *msg);
 
 #endif
