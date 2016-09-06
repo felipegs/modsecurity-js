@@ -1,6 +1,6 @@
 {
 	"variables": {
-		"COMMONS_LIB_DIR": "/usr/local/modsecurity"
+		"MODSECURITY_LIB_DIR": "/usr/local/modsecurity"
 	},
 	"targets": [{
 		"target_name": "node_modsecurity",
@@ -27,10 +27,10 @@
 		"link_settings": {
 			"libraries": [
 				"-lmodsecurity",
-				"-L<(COMMONS_LIB_DIR)/lib"
+				"-L<(MODSECURITY_LIB_DIR)/lib"
 			]
 		},
-		"ldflags": ["-Wl,-rpath,<(COMMONS_LIB_DIR)/lib"],
+		"ldflags": ["-Wl,-rpath,<(MODSECURITY_LIB_DIR)/lib"],
 		"conditions": [
 			[
 				"OS==\"mac\"", {
@@ -51,7 +51,7 @@
 		],
 		"include_dirs": [
 			"<!(node -e \"require('nan')\")",
-			"<(COMMONS_LIB_DIR)/include/"
+			"<(MODSECURITY_LIB_DIR)/include/"
 		]
 	}]
 }
