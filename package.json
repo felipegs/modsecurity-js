@@ -3,7 +3,7 @@
   "author": "Felipe Guimarães Santos",
   "contributors": [],
   "description": "A modesecurity binding for nodejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/felipegs/modsecurity-js.git"
