@@ -1,7 +1,6 @@
 #include <modsecurity/modsecurity.h>
 #include <modsecurity/transaction.h>
 #include "modsecurity_worker.hpp"
-#include <iostream>
 
 using modsecurity::ModSecurity;
 using modsecurity::Rules;
