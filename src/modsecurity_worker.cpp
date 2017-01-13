@@ -1,5 +1,5 @@
 #include <modsecurity/modsecurity.h>
-#include <modsecurity/transaction.h>
+#include <modsecurity/rules.h>
 #include "modsecurity_worker.hpp"
 
 using modsecurity::ModSecurity;
